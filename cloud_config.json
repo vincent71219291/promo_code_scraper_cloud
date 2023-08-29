@@ -1,0 +1,62 @@
+{
+    "storage": {
+        "project_id": "50581288839",
+        "bucket_name": "bucket_vgt_71219291",
+        "scrape_config_path": "promo_code_scraper/scrape_config.json"
+    },
+    "bigquery": {
+        "project_id": "50581288839",
+        "dataset_id": "code_scraper",
+        "_code_table": {
+            "table_id": "codes",
+            "fields": [
+                {
+                    "name": "code",
+                    "field_type": "STRING"
+                },
+                {
+                    "name": "discount",
+                    "field_type": "INTEGER"
+                },
+                {
+                    "name": "description",
+                    "field_type": "STRING"
+                },
+                {
+                    "name": "scraping_date",
+                    "field_type": "DATE"
+                },
+                {
+                    "name": "expiration_date",
+                    "field_type": "DATE"
+                },
+                {
+                    "name": "website_id",
+                    "field_type": "STRING"
+                }
+            ]
+        },
+        "_website_table": {
+            "table_id": "websites",
+            "fields": [
+                {
+                    "name": "website_id",
+                    "field_type": "STRING"
+                },
+                {
+                    "name": "website_name",
+                    "field_type": "STRING"
+                },
+                {
+                    "name": "website_name_clean",
+                    "field_type": "STRING"
+                },
+                {
+                    "name": "url",
+                    "field_type": "STRING"
+                }
+            ]
+        },
+        "create_table_if_needed": true
+    }
+}
