@@ -100,9 +100,7 @@ def upload_scrape_result(
             if bigquery_config.create_table_if_needed:
                 bigquery_config.client.create_table(table)
             else:
-                raise ValueError(
-                    f"Table '{table.full_table_id}' does not exist."
-                )
+                raise ValueError(f"Table '{table!s}' does not exist.")
 
     # charge les données du site
     upload_website_data(result=result, bigquery_config=bigquery_config)

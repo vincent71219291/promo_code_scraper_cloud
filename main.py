@@ -65,7 +65,7 @@ def main():
         print("Sending alert is off.")
     else:
         if new_codes.empty:
-            print("No new codes found. No alert was sent.")
+            print("No new codes found. No alerts were sent.")
         else:
             try:
                 user = get_secret_string(
