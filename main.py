@@ -4,14 +4,14 @@ from google.cloud import exceptions
 
 from scrape.alert import create_alert, send_mail
 from scrape.codes import select_new_codes
-from scrape.config import load_scrape_config_from_storage, read_cloud_config
+from scrape.config import (
+    load_browser_options,
+    load_scrape_config_from_storage,
+    read_cloud_config,
+)
 from scrape.driver import init_driver
 from scrape.html import df_to_html
-from scrape.queries import (
-    download_previous_codes,
-    last_execution,
-    upload_scrape_result,
-)
+from scrape.queries import download_previous_codes, last_execution, upload_scrape_result
 from scrape.scraper import CodeScraper
 from scrape.secrets import get_secret_string
 
@@ -32,7 +32,8 @@ def main():
         print(f"Script was already executed today ({today}). Ending script.")
         return
 
-    driver = init_driver()
+    options = load_browser_options(cloud_config.storage)
+    driver = init_driver(options=options)
 
     # scrape les codes promo
     scraper = CodeScraper(driver, scrape_config.url)
@@ -68,9 +69,7 @@ def main():
             print("No new codes found. No alerts were sent.")
         else:
             try:
-                user = get_secret_string(
-                    "EMAIL_USER", cloud_config.storage.project_id
-                )
+                user = get_secret_string("EMAIL_USER", cloud_config.storage.project_id)
                 password = get_secret_string(
                     "EMAIL_PASS", cloud_config.storage.project_id
                 )
@@ -86,9 +85,7 @@ def main():
                 website=result.website_name,
                 table=df_html,
             )
-            send_mail(
-                sender=user, password=password, receiver=user, message=alert
-            )
+            send_mail(sender=user, password=password, receiver=user, message=alert)
             print(f"Alert sent to {user!r}.")
 
 

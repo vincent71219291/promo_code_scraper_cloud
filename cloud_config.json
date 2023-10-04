@@ -2,7 +2,8 @@
     "storage": {
         "project_id": "50581288839",
         "bucket_name": "bucket_vgt_71219291",
-        "scrape_config_path": "promo_code_scraper/scrape_config.json"
+        "scrape_config_path": "promo_code_scraper/scrape_config.json",
+        "browser_options_path": "promo_code_scraper/browser_options.json"
     },
     "bigquery": {
         "project_id": "50581288839",

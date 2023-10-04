@@ -10,6 +10,7 @@ class StorageConfig:
     client: storage.Client = field(init=False)
     bucket_name: str
     scrape_config_path: str
+    browser_options_path: str
 
     def __post_init__(self):
         self.client = storage.Client(project=self.project_id)
@@ -75,3 +76,13 @@ def load_scrape_config_from_storage(storage_config: StorageConfig):
         data = json.load(file)
 
     return ScrapeConfig(**data)
+
+
+def load_browser_options(storage_config: StorageConfig) -> list:
+    bucket = storage_config.client.get_bucket(storage_config.bucket_name)
+    blob = bucket.blob(storage_config.browser_options_path)
+
+    with blob.open(mode="rb") as file:
+        data = json.load(file)
+
+    return data["options"]

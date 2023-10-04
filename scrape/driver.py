@@ -11,9 +11,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from . import constants
 
 BROWSER_OPTIONS = (
-    "--headless",
-    "--disable-gpu",
-    "window-size=1024,768",
+    # "--headless",
+    # "--disable-gpu",
+    "window-size=1920,1080",  # "window-size=1024,768",
     # "--disable-dev-shm-usage",
     "--no-sandbox",
     "start-maximized",
@@ -21,13 +21,11 @@ BROWSER_OPTIONS = (
 )
 
 
-def init_driver(options: tuple = BROWSER_OPTIONS):
+def init_driver(options: list | tuple = BROWSER_OPTIONS):
     chrome_options = Options()
     for option in options:
         chrome_options.add_argument(option)
-    chrome_options.add_experimental_option(
-        "excludeSwitches", ["enable-automation"]
-    )
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     service = Service()
     return webdriver.Chrome(options=chrome_options, service=service)
 
