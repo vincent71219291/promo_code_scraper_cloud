@@ -27,3 +27,4 @@
 **/*.ipynb_checkpoints
 LICENSE
 README.md
+**/*.pbix

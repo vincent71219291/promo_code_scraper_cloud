@@ -33,12 +33,15 @@ def main():
         return
 
     options = load_browser_options(cloud_config.storage)
-    driver = init_driver(options=options)
+    driver = init_driver()
 
     # scrape les codes promo
     scraper = CodeScraper(driver, scrape_config.url)
     result = scraper.scrape()
     scraper.close_driver()
+    if result is None:
+        print("No codes found.")
+        return
 
     # récupère les anciens codes et recherche les codes originaux
     print("Attempting to retrieve previous codes...")
@@ -63,10 +66,10 @@ def main():
 
     # envoie une alerte email ou non selon les paramètres de configuration
     if not scrape_config.send_alert:
-        print("Sending alert is off.")
+        print("Alerts are turned off.")
     else:
         if new_codes.empty:
-            print("No new codes found. No alerts were sent.")
+            print("No new codes found. No alert sent.")
         else:
             try:
                 user = get_secret_string("EMAIL_USER", cloud_config.storage.project_id)

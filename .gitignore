@@ -3,3 +3,4 @@ __pycache__/
 geckodriver.log
 *.ipynb
 *.ipynb_checkpoints/
+*.pbix
