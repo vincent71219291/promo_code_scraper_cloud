@@ -33,7 +33,7 @@ def main():
         return
 
     options = load_browser_options(cloud_config.storage)
-    driver = init_driver()
+    driver = init_driver(options=options)
 
     # scrape les codes promo
     scraper = CodeScraper(driver, scrape_config.url)
